@@ -404,19 +404,34 @@ const updateRole = asyncHandler(async (req: Request, res: Response) => {
     .json(new apiResponse(true, 200, {}, "Role Updated SuccessFully"));
 });
 const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
-  const limit = Number(process.env.PAGE_LIMIT);
-  const page = parseInt(req.params.page);
-  const users = await User.find()
-    .limit(limit)
-    .skip((page - 1) * limit)
-    .select("-password -refreshToken");
-  const totalUserLists = await User.find().select("-password -refreshToken");
+  const users = await User.find({ role: "user" })
 
-  const totalPageNumber = Math.ceil(totalUserLists.length / limit);
+    .select("-password -refreshToken");
+
+  return res.status(200).json(new apiResponse(true, 200, users, "All Users"));
+});
+const getSpecificUser = asyncHandler(async (req: Request, res: Response) => {
+  const userId = req.params.id;
+  console.log("UserId : ", userId);
+  if (!userId)
+    return res
+      .status(404)
+      .json(new apiResponse(false, 404, null, "UserId is Required"));
+
+  const userDetails = await User.findById(userId).select(
+    "-password -refreshToken"
+  );
 
   return res
     .status(200)
-    .json(new apiResponse(true, 200, { users, totalPageNumber }, "All Users"));
+    .json(
+      new apiResponse(
+        true,
+        200,
+        userDetails,
+        "User Details Fetched SuccessFully"
+      )
+    );
 });
 export {
   registerUser,
@@ -429,4 +444,5 @@ export {
   updateRole,
   updateUserDetails,
   getAllUsers,
+  getSpecificUser,
 };

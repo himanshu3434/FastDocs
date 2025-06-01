@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 const Header = lazy(() => import("./component/header"));
@@ -17,8 +17,13 @@ import "react-toastify/dist/ReactToastify.css";
 import type { RootState } from "./store/Store";
 import type { Iuser } from "./types/types";
 import axios from "axios";
-import GenericLoader from "./component/GenericLoader";
+
 import NewEmployee from "./component/NewEmployee";
+import AllEmployee from "./component/AllEmployee";
+import EmployeeUpload from "./component/EmployeeUpload";
+import EmployeeDetail from "./component/EmployeeDetail";
+import ThankYou from "./component/ThankYou";
+import GenericLoader from "./component/GenericLoader";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,17 +48,50 @@ function App() {
           dispatch(logout());
         }
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+
+        console.log("  User Status : ", userStatus);
+      });
   }, []);
   return (
     <div className="">
       <Header />
       {loading ? (
-        <h1>Loading.....</h1>
+        <GenericLoader />
       ) : (
         <div>
           <div>
             <Routes>
+              {userData && userData.role === "admin" ? (
+                <Route
+                  path="/"
+                  element={
+                    <AuthLayout
+                      authentication
+                      userStatus={userStatus}
+                      isAdmin={userData?.role === "admin" ? true : false}
+                      adminOnly={false}
+                    >
+                      <AllEmployee />
+                    </AuthLayout>
+                  }
+                />
+              ) : (
+                <Route
+                  path="/"
+                  element={
+                    <AuthLayout
+                      authentication
+                      userStatus={userStatus}
+                      isAdmin={userData?.role === "admin" ? true : false}
+                      adminOnly={false}
+                    >
+                      <EmployeeUpload />
+                    </AuthLayout>
+                  }
+                />
+              )}
               <Route
                 path="/login"
                 element={
@@ -67,6 +105,7 @@ function App() {
                   </AuthLayout>
                 }
               />
+              <Route path="/done" element={<ThankYou />} />
               <Route
                 path="/signup"
                 element={
@@ -83,14 +122,40 @@ function App() {
               <Route
                 path="/newEmployee"
                 element={
-                  // <AuthLayout
-                  //   authentication={true}
-                  //   userStatus={userStatus}
-                  //   isAdmin={userData?.role === "admin"}
-                  //   adminOnly={true}
-                  // >
-                  <NewEmployee />
-                  // </AuthLayout>
+                  <AuthLayout
+                    authentication={true}
+                    userStatus={userStatus}
+                    isAdmin={userData?.role === "admin"}
+                    adminOnly={true}
+                  >
+                    <NewEmployee />
+                  </AuthLayout>
+                }
+              />
+              <Route
+                path="/all"
+                element={
+                  <AuthLayout
+                    authentication={true}
+                    userStatus={userStatus}
+                    isAdmin={userData?.role === "admin"}
+                    adminOnly={true}
+                  >
+                    <AllEmployee />
+                  </AuthLayout>
+                }
+              />
+              <Route
+                path="/employee/:id"
+                element={
+                  <AuthLayout
+                    authentication={true}
+                    userStatus={userStatus}
+                    isAdmin={userData?.role === "admin"}
+                    adminOnly={true}
+                  >
+                    <EmployeeDetail />
+                  </AuthLayout>
                 }
               />
             </Routes>

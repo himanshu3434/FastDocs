@@ -1,47 +1,71 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Input from "./Input";
+import { useForm } from "react-hook-form";
+import Button from "./Button";
+import { getAllDocName, uploadAllDocuments } from "../api/docNameApi";
+import { toastError, toastSuccess } from "../utils/toast";
+import { useNavigate } from "react-router-dom";
+import GenericLoader from "./GenericLoader";
 
 function EmployeeUpload() {
-  return (
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm({});
+  const onSubmit = async (data: any) => {
+    data.aadharCard = data.aadharCard[0];
+    data.panCard = data.panCard[0];
+    data.ssc = data.ssc[0];
+    data.hsc = data.hsc[0];
+    data.graduation = data.graduation[0];
+
+    const uploadDocumentStatuis = await uploadAllDocuments(data);
+
+    if (uploadDocumentStatuis.data.success) {
+      toastSuccess("Documents Uploaded Successfully");
+      navigate("/done");
+    }
+  };
+  const [allDocNames, setAllDocNames] = useState([]);
+  const [loading, SetLoading] = useState(true);
+  const docNameHandler = async () => {
+    const docNames = await getAllDocName();
+    if (docNames.data.success) {
+      setAllDocNames(docNames.data.data);
+    } else {
+      toastError("Something went wrong while fetching document names");
+    }
+  };
+  useEffect(() => {
+    docNameHandler().then(() => {
+      SetLoading(false);
+    });
+  }, []);
+
+  return loading ? (
+    <div>
+      <GenericLoader />{" "}
+    </div>
+  ) : (
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" w-[40vw] mx-auto shadow-lg p-5 rounded-2xl"
+        className=" w-[40vw] mx-auto shadow-lg p-5 rounded-2xl flex flex-col items-center"
         encType="multipart/form-data"
       >
-        <div className="font-semibold text-center   opacity-45  ">
-          Create Product{" "}
+        <div className="font-bold text-center  text-2xl   opacity-70 ">
+          Document Upload{" "}
         </div>
 
-        <div className=" space-y-5 mt-5">
-          <Input
-            label="AadharCard:"
-            type="file"
-            className=" bg-gray-200 flex "
-            accept="image/png, image/jpg, image/jpeg, image/gif"
-            {...register("aadharCard", { required: true })}
-          />
-          <Input
-            label="PanCard :"
-            type="file"
-            className=" bg-gray-200 flex"
-            accept="image/png, image/jpg, image/jpeg, image/gif"
-            {...register("panCard", { required: true })}
-          />
-          <Input
-            label="10th Marksheet :"
-            type="file"
-            className=" bg-gray-200 flex"
-            accept="image/png, image/jpg, image/jpeg, image/gif"
-            {...register("ssc", { required: true })}
-          />
-          <Input
-            label="12th Marksheet :"
-            type="file"
-            className=" bg-gray-200 flex "
-            accept="image/png, image/jpg, image/jpeg, image/gif"
-            {...register("hsc", { required: true })}
-          />
+        <div className=" space-y-5 mt-5 ">
+          {allDocNames.map((docName: any) => (
+            <Input
+              key={docName._id}
+              label={`${docName.Name}:`}
+              type="file"
+              className="  bg-gray-200 flex cursor-pointer rounded-xl p-2"
+              accept="image/png, image/jpg, image/jpeg, image/gif"
+              {...register(docName.Name, { required: true })}
+            />
+          ))}
 
           <Button
             type="submit"

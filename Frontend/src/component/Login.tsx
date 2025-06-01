@@ -45,7 +45,7 @@ function Login() {
       </div>
       <div className="absolute w-[350px] h-[400px] rounded-xl p-5 mt-10 mb-10  text-black shadow-2xl">
         <div className="text-3xl mb-4 text-center font-bold ">
-          <h1 className="">Sign in</h1>
+          <h1 className="opacity-70">Sign in</h1>
         </div>
         <div>
           <div>

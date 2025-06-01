@@ -20,7 +20,7 @@ function AuthLayout({
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-
+  console.log("here ");
   useEffect(() => {
     if (authentication && userStatus !== authentication) navigate("/login");
     else if (authentication === false && userStatus !== authentication) {
@@ -29,7 +29,7 @@ function AuthLayout({
 
     if (adminOnly == true && isAdmin === false) navigate("/");
     setLoading(false);
-  }, []);
+  }, [authentication, userStatus, isAdmin, adminOnly]);
 
   return loading ? <div>Loading </div> : <div> {children}</div>;
 }

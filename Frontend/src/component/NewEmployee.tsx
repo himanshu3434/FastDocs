@@ -3,18 +3,37 @@ import Input from "./Input";
 import { useForm } from "react-hook-form";
 import Select from "./Select";
 import Button from "./Button";
+import { registerUser } from "../api/userApi";
+import { toastError, toastSuccess } from "../utils/toast";
+import { createEmployee } from "../api/docNameApi";
+import { useNavigate } from "react-router-dom";
 
 function NewEmployee() {
   const { handleSubmit, register } = useForm({});
+  const navigate = useNavigate();
 
-  const signup = async (data: any) => {};
+  const signup = async (data: any) => {
+    const NewEmployeesDetails = await createEmployee(data);
+
+    console.log("New Employee Details : ", NewEmployeesDetails);
+    if (NewEmployeesDetails.data.success) {
+      toastSuccess("New Employee Added Successfully");
+      console.log("New Employee Details indifr  : ", NewEmployeesDetails);
+      navigate("/all");
+    } else {
+      toastError("Something went wrong while adding new employee");
+    }
+  };
   return (
-    <div>
+    <div className=" w-2/3 mx-auto shadow-2xl p-6 rounded-4xl">
+      <div className="flex justify-center items-center my-4">
+        <h1 className="font-bold text-3xl">Employee Details</h1>
+      </div>
       <form onSubmit={handleSubmit(signup)}>
-        <div>
+        <div className=" mx-auto">
           <Input
             label="Full Name"
-            className="rounded-lg py-2 px-3 w-full border-2"
+            className="rounded-lg py-2 px-3 w-full border-1"
             placeholder="Enter your Full Name"
             {...register("fullName", {
               required: true,
@@ -24,7 +43,7 @@ function NewEmployee() {
           <Input
             label="Mobile Number"
             type="tel"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-2"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
             placeholder="Enter your Number "
             {...register("mobileNumber", {
               validate: {
@@ -38,7 +57,7 @@ function NewEmployee() {
           <Input
             label="Email Address"
             type="email"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-2"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
             placeholder="Enter your Email address"
             {...register("email", {
               required: true,
@@ -59,7 +78,7 @@ function NewEmployee() {
           <Input
             label="Date of Birth"
             type="date"
-            className="rounded-lg py-2 px-3 w-full mt-2 text-black border-2"
+            className="rounded-lg py-2 px-3 w-full mt-2 text-black border-1"
             placeholder="enter you Date"
             {...register("dob", {
               required: true,
@@ -68,7 +87,7 @@ function NewEmployee() {
 
           <Input
             label="Address"
-            className="rounded-lg py-2 px-3 w-full border-2"
+            className="rounded-lg py-2 px-3 w-full border-1"
             placeholder="Enter your House No ,Locality ,city"
             {...register("address", {
               required: true,
@@ -78,7 +97,7 @@ function NewEmployee() {
           <Input
             label="State"
             type="text"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-2"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
             placeholder="Enter your State "
             {...register("state", {
               required: true,
@@ -94,7 +113,7 @@ function NewEmployee() {
           <Input
             label="Pincode"
             type="Number"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-2"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
             placeholder="Enter your pincode "
             {...register("pincode", {
               required: true,
@@ -105,7 +124,7 @@ function NewEmployee() {
             type="submit"
             className="bg-sky-500 w-full py-2  mt-4 rounded-lg text-white"
           >
-            Save
+            Create
           </Button>
         </div>
       </form>

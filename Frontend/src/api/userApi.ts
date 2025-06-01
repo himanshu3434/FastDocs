@@ -77,10 +77,8 @@ const updateProfile = async (data: FieldValues) => {
 
   return updateResponse;
 };
-const fetchAllUsers = async (page: number) => {
-  const getAllUsersUrl = `${
-    import.meta.env.VITE_SERVER_URL
-  }/user/allUser/${page}`;
+const fetchAllUsers = async () => {
+  const getAllUsersUrl = `${import.meta.env.VITE_SERVER_URL}/user/allUser`;
   const options = {
     method: "GET",
     url: getAllUsersUrl,
@@ -90,6 +88,17 @@ const fetchAllUsers = async (page: number) => {
 
   return allUsers;
 };
+const getSpecificUser = async (id: string) => {
+  const getAllUsersUrl = `${import.meta.env.VITE_SERVER_URL}/user/get/${id}`;
+  const options = {
+    method: "GET",
+    url: getAllUsersUrl,
+  };
+
+  const currentUsers = await axios.request(options);
+
+  return currentUsers;
+};
 
 export {
   loginUser,
@@ -98,4 +107,5 @@ export {
   logoutUserApi,
   updateProfile,
   fetchAllUsers,
+  getSpecificUser,
 };

@@ -14,7 +14,7 @@ export const verifyJWT = asyncHandler(
 
     if (!token)
       return res
-        .status(404)
+        .status(200)
         .json(new apiResponse(false, 404, null, "User Not Found"));
 
     const decodedToken = jwt.verify(
@@ -29,7 +29,7 @@ export const verifyJWT = asyncHandler(
     if (!user) throw new apiError(401, "Invalid Access Token");
 
     req.user = user;
-
+    //  console.log("User found : ", user);
     next();
   }
 );

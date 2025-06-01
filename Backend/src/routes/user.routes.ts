@@ -3,6 +3,7 @@ import {
   deleteUser,
   getAllUsers,
   getCurrentUser,
+  getSpecificUser,
   loginUser,
   logoutUser,
   refreshAccessToken,
@@ -28,6 +29,7 @@ userRouter.post("/updateDetails", verifyJWT, updateUserDetails);
 userRouter.post("/delete", verifyJWT, deleteUser);
 //admin routes
 userRouter.post("/updateRole", verifyJWT, verifyAdmin, updateRole);
-userRouter.get("/allUser/:page", verifyJWT, verifyAdmin, getAllUsers);
+userRouter.get("/allUser", verifyJWT, verifyAdmin, getAllUsers);
+userRouter.get("/get/:id", verifyJWT, verifyAdmin, getSpecificUser);
 
 export { userRouter };

@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { apiResponse } from "../utils/apiResponse.js";
 import { DocNameModel } from "../models/docname.model.js";
-import { getTokenSourceMapRange } from "typescript";
 
 const createDocName = asyncHandler(async (req: Request, res: Response) => {
   const { docName } = req.body;
