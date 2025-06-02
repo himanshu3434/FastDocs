@@ -148,7 +148,7 @@ function Header() {
       <div className="sm:hidden   shadow-md">
         <div className="flex justify-between shadow-b-md px-5 py-4">
           <div className=" flex  items-center text-2xl font-bold text-sky-500 hover:text-sky-600">
-            <Link to="/">JHStore</Link>
+            <Link to="/">EasyDocs</Link>
           </div>
           <button onClick={toggleOpen}>
             {isOpen ? (
