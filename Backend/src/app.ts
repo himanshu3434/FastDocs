@@ -1,4 +1,4 @@
-import express, { Request, Response, urlencoded } from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -26,10 +26,11 @@ import { userRouter } from "./routes/user.routes.js";
 import { docNameRouter } from "./routes/docName.routes.js";
 import { documentRouter } from "./routes/document.routes.js";
 
-// app.use("/api/v1/test", (req: Request, res: Response) => {
-//   console.log("req ", req);
-//   return res.send("Welcome to EasyDocs API");
-// });
+app.use("/api/v1/test", async (req: Request, res: Response) => {
+  res.send("Welcome to EasyDocs Api");
+
+  return;
+});
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/docName", docNameRouter);
 app.use("/api/v1/document", documentRouter);
