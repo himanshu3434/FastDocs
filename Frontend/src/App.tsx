@@ -51,7 +51,7 @@ function App() {
       .finally(() => {
         setLoading(false);
 
-        console.log("  User Status : ", userStatus);
+        // console.log("  User Status : ", userStatus);
       });
   }, []);
   return (

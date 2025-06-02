@@ -10,7 +10,7 @@ app.use(cookieParser());
 console.log("  this is cors origin ", process.env.CORS_ORIGIN);
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: process.env.CORS_ORIGIN,
     methods: ["POST", "GET", "PUT", "DELETE"],
 
     credentials: true,
@@ -35,7 +35,7 @@ app.use("/api/v1/docName", docNameRouter);
 app.use("/api/v1/document", documentRouter);
 
 setInterval(async () => {
-  console.log(" calling ping ");
+  // console.log(" calling ping ");
   try {
     const response = await fetch(process.env.PING_URL || "");
     const data = await response.text();

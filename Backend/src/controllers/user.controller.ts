@@ -412,7 +412,7 @@ const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 });
 const getSpecificUser = asyncHandler(async (req: Request, res: Response) => {
   const userId = req.params.id;
-  console.log("UserId : ", userId);
+  // console.log("UserId : ", userId);
   if (!userId)
     return res
       .status(404)
