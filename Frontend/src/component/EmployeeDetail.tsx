@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { getSpecificUser } from "../api/userApi";
 import { getAllDocument } from "../api/docNameApi";
 import type { Iuser } from "../types/types";
+import GenericLoader from "./GenericLoader";
+import ImageCard from "./ImageCard";
 
 function EmployeeDetail() {
   const { id } = useParams();
@@ -43,94 +45,22 @@ function EmployeeDetail() {
           Uploaded Documents
         </h2>
         {loading ? (
-          <div>Loading ... </div>
+          <div>
+            <GenericLoader />
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="border rounded-xl p-4 shadow hover:shadow-md transition">
-              <p className="font-medium text-gray-700 mb-2">"Aadhar Card"</p>
-              {images.aadharCard ? (
-                <a
-                  href={images.aadharCard}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src={images.aadharCard}
-                    alt={images.aadharCard}
-                    className="w-full h-40 object-cover rounded"
-                  />
-                </a>
-              ) : (
-                <p className="text-gray-400 text-sm">No document uploaded</p>
-              )}
-            </div>
-
-            <div className="border rounded-xl p-4 shadow hover:shadow-md transition">
-              <p className="font-medium text-gray-700 mb-2">PanCard</p>
-              {images.panCard ? (
-                <a
-                  href={images.panCard}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src={images.panCard}
-                    alt={images.panCard}
-                    className="w-full h-40 object-cover rounded"
-                  />
-                </a>
-              ) : (
-                <p className="text-gray-400 text-sm">No document uploaded</p>
-              )}
-            </div>
-            <div className="border rounded-xl p-4 shadow hover:shadow-md transition">
-              <p className="font-medium text-gray-700 mb-2">10th MarkSheet</p>
-              {images.ssc ? (
-                <a href={images.ssc} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={images.ssc}
-                    alt={images.ssc}
-                    className="w-full h-40 object-cover rounded"
-                  />
-                </a>
-              ) : (
-                <p className="text-gray-400 text-sm">No document uploaded</p>
-              )}
-            </div>
-            <div className="border rounded-xl p-4 shadow hover:shadow-md transition">
-              <p className="font-medium text-gray-700 mb-2">12th Marksheet</p>
-              {images.hsc ? (
-                <a href={images.hsc} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={images.hsc}
-                    alt={images.hsc}
-                    className="w-full h-40 object-cover rounded"
-                  />
-                </a>
-              ) : (
-                <p className="text-gray-400 text-sm">No document uploaded</p>
-              )}
-            </div>
-            <div className="border rounded-xl p-4 shadow hover:shadow-md transition">
-              <p className="font-medium text-gray-700 mb-2">
-                Graduation Marksheet
-              </p>
-              {images.graduation ? (
-                <a
-                  href={images.graduation}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src={images.graduation}
-                    alt={images.graduation}
-                    className="w-full h-40 object-cover rounded"
-                  />
-                </a>
-              ) : (
-                <p className="text-gray-400 text-sm">No document uploaded</p>
-              )}
-            </div>
+            <ImageCard
+              imageLink={images.aadharCard}
+              documentName="Aadhar Card"
+            />
+            <ImageCard imageLink={images.panCard} documentName="PanCard" />
+            <ImageCard imageLink={images.ssc} documentName="10th MarkSheet" />
+            <ImageCard imageLink={images.hsc} documentName="12th Marksheet" />
+            <ImageCard
+              imageLink={images.graduation}
+              documentName="Graduation MarkSheet"
+            />
           </div>
         )}
       </div>

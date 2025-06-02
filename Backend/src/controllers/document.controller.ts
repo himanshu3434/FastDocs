@@ -45,7 +45,7 @@ const createEmployee = asyncHandler(async (req: Request, res: Response) => {
 
   if (existingUser)
     return res
-      .status(409)
+      .status(200)
       .json(
         new apiResponse(
           false,

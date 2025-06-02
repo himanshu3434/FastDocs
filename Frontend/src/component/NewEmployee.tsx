@@ -6,12 +6,18 @@ import Button from "./Button";
 import { toastError, toastSuccess } from "../utils/toast";
 import { createEmployee } from "../api/docNameApi";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function NewEmployee() {
   const { handleSubmit, register } = useForm({});
   const navigate = useNavigate();
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [buttonText, setButtonText] = useState(0);
+  const buttonTextArray = ["Create", "Sending..", "Parsing...", "Creating.."];
 
   const signup = async (data: any) => {
+    setButtonLoading(true);
+    setButtonText(1);
     const NewEmployeesDetails = await createEmployee(data);
 
     console.log("New Employee Details : ", NewEmployeesDetails);
@@ -20,9 +26,28 @@ function NewEmployee() {
       console.log("New Employee Details indifr  : ", NewEmployeesDetails);
       navigate("/all");
     } else {
-      toastError("Something went wrong while adding new employee");
+      if (NewEmployeesDetails.data.statusCode === 409)
+        toastError("Employee with This Email Already Exist");
+      else toastError("Something went wrong while adding new employee");
     }
+    setButtonLoading(false);
   };
+
+  useEffect(() => {
+    const changeText = setInterval(() => {
+      if (buttonLoading) {
+        setButtonText((prev) => (prev === 3 ? prev : prev + 1));
+      }
+    }, 1200);
+    if (!buttonLoading) {
+      setButtonText(0);
+    }
+
+    return () => {
+      clearInterval(changeText);
+    };
+  }, [buttonLoading]);
+
   return (
     <div className=" w-2/3 mx-auto shadow-2xl p-6 rounded-4xl">
       <div className="flex justify-center items-center my-4">
@@ -121,9 +146,9 @@ function NewEmployee() {
 
           <Button
             type="submit"
-            className="bg-sky-500 w-full py-2  mt-4 rounded-lg text-white"
+            className="bg-sky-500 w-full py-2  mt-4 rounded-lg text-white cursor-pointer"
           >
-            Create
+            {buttonTextArray[buttonText]}
           </Button>
         </div>
       </form>

@@ -10,12 +10,18 @@ import GenericLoader from "./GenericLoader";
 function EmployeeUpload() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm({});
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [buttonText, setButtonText] = useState(0);
+  const buttonTextArray = ["Upload", "Sending..", "Parsing...", "uploading.."];
+
   const onSubmit = async (data: any) => {
     data.aadharCard = data.aadharCard[0];
     data.panCard = data.panCard[0];
     data.ssc = data.ssc[0];
     data.hsc = data.hsc[0];
     data.graduation = data.graduation[0];
+    setButtonLoading(true);
+    setButtonText(1);
 
     const uploadDocumentStatuis = await uploadAllDocuments(data);
 
@@ -23,7 +29,24 @@ function EmployeeUpload() {
       toastSuccess("Documents Uploaded Successfully");
       navigate("/done");
     }
+    setButtonLoading(false);
   };
+
+  useEffect(() => {
+    const changeText = setInterval(() => {
+      if (buttonLoading) {
+        setButtonText((prev) => (prev === 3 ? prev : prev + 1));
+      }
+    }, 1200);
+    if (!buttonLoading) {
+      setButtonText(0);
+    }
+
+    return () => {
+      clearInterval(changeText);
+    };
+  }, [buttonLoading]);
+
   const [allDocNames, setAllDocNames] = useState([]);
   const [loading, SetLoading] = useState(true);
   const docNameHandler = async () => {
@@ -71,7 +94,7 @@ function EmployeeUpload() {
             type="submit"
             className="w-full mt-2  bg-sky-500 rounded-lg py-2 text-white hover:bg-sky-400"
           >
-            Submit
+            {buttonTextArray[buttonText]}
           </Button>
         </div>
       </form>
