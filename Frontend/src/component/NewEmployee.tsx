@@ -1,9 +1,8 @@
-import React from "react";
 import Input from "./Input";
 import { useForm } from "react-hook-form";
 import Select from "./Select";
 import Button from "./Button";
-import { registerUser } from "../api/userApi";
+
 import { toastError, toastSuccess } from "../utils/toast";
 import { createEmployee } from "../api/docNameApi";
 import { useNavigate } from "react-router-dom";
