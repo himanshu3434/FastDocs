@@ -103,17 +103,17 @@ function Header() {
             {userData && userData.role === "admin" && (
               <Link to="/all">
                 {" "}
-                <div className="   group hover:border-b-2 border-sky-500">
+                <div className="   group  flex flex-col justify-center items-center border-sky-500 ">
                   <div className="  flex justify-center text-gray-500  group-hover:text-sky-600">
                     <FiArchive size={20} />
                   </div>
-                  <p className=" text-[.7rem] leading-2  font-semibold mt-1     group-hover:text-sky-600">
+                  <p className=" text-[.7rem] leading-2  font-semibold mt-1   group-hover:text-sky-600">
                     All
                   </p>
                 </div>{" "}
               </Link>
             )}
-            <div className="group   hover:border-b-2 border-pink-500  cursor-pointer  ">
+            <div className="group    border-pink-500  cursor-pointer  ">
               <div className=" flex justify-center  text-gray-500 group-hover:text-pink-500">
                 <FaRegUser size={20} />
               </div>
@@ -131,7 +131,7 @@ function Header() {
             {userData && userData.role === "admin" && (
               <Link to="/newEmployee">
                 {" "}
-                <div className="group    hover:border-b-2 border-cyan-500">
+                <div className="group    border-cyan-500">
                   <div className=" flex justify-center text-gray-500 group-hover:text-cyan-500">
                     <CiSquarePlus size={22} className="" />
                   </div>
