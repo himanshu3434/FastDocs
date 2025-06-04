@@ -38,8 +38,8 @@ function Signup() {
   };
 
   return (
-    <div>
-      <div className="w-[350px] h-[450px] rounded-xl p-5 mt-10 mb-10 ml-auto mr-auto text-black shadow-xl">
+    <div className="bg-white">
+      <div className="w-[350px] h-[450px]  rounded-xl p-5 mt-10   mb-10 ml-auto mr-auto text-black shadow-xl">
         <div className="text-3xl mb-4 text-center font-bold">
           <h1>Sign up </h1>
         </div>

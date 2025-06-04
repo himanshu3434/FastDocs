@@ -49,7 +49,7 @@ function NewEmployee() {
   }, [buttonLoading]);
 
   return (
-    <div className=" w-2/3 mx-auto shadow-2xl p-6 rounded-4xl">
+    <div className=" w-2/3 mx-auto shadow-2xl p-6 rounded-4xl bg-white">
       <div className="flex justify-center items-center my-4">
         <h1 className="font-bold text-3xl">Employee Details</h1>
       </div>
@@ -57,7 +57,7 @@ function NewEmployee() {
         <div className=" mx-auto">
           <Input
             label="Full Name"
-            className="rounded-lg py-2 px-3 w-full border-1"
+            className="rounded-lg py-2 px-3 w-full border-1 border-slate-300"
             placeholder="Enter your Full Name"
             {...register("fullName", {
               required: true,
@@ -67,7 +67,7 @@ function NewEmployee() {
           <Input
             label="Mobile Number"
             type="tel"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1 border-slate-300"
             placeholder="Enter your Number "
             {...register("mobileNumber", {
               validate: {
@@ -81,7 +81,7 @@ function NewEmployee() {
           <Input
             label="Email Address"
             type="email"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1 border-slate-300"
             placeholder="Enter your Email address"
             {...register("email", {
               required: true,
@@ -102,7 +102,7 @@ function NewEmployee() {
           <Input
             label="Date of Birth"
             type="date"
-            className="rounded-lg py-2 px-3 w-full mt-2 text-black border-1"
+            className="rounded-lg py-2 px-3 w-full mt-2 text-black border-1 border-slate-300"
             placeholder="enter you Date"
             {...register("dob", {
               required: true,
@@ -111,7 +111,7 @@ function NewEmployee() {
 
           <Input
             label="Address"
-            className="rounded-lg py-2 px-3 w-full border-1"
+            className="rounded-lg py-2 px-3 w-full border-1 border-slate-300"
             placeholder="Enter your House No ,Locality ,city"
             {...register("address", {
               required: true,
@@ -121,7 +121,7 @@ function NewEmployee() {
           <Input
             label="State"
             type="text"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1 border-slate-300"
             placeholder="Enter your State "
             {...register("state", {
               required: true,
@@ -137,7 +137,7 @@ function NewEmployee() {
           <Input
             label="Pincode"
             type="Number"
-            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1"
+            className="rounded-lg py-2 px-3 w-full mt-2 mb-2 border-1 border-slate-300"
             placeholder="Enter your pincode "
             {...register("pincode", {
               required: true,

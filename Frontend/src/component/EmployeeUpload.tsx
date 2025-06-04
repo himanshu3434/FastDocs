@@ -68,10 +68,10 @@ function EmployeeUpload() {
       <GenericLoader />{" "}
     </div>
   ) : (
-    <div>
+    <div className="">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" w-[40vw] mx-auto shadow-lg p-5 rounded-2xl flex flex-col items-center"
+        className=" w-[40vw] mx-auto shadow-lg p-5 rounded-2xl flex flex-col items-center bg-white"
         encType="multipart/form-data"
       >
         <div className="font-bold text-center  text-2xl   opacity-70 ">
@@ -82,7 +82,7 @@ function EmployeeUpload() {
           {allDocNames.map((docName: any) => (
             <Input
               key={docName._id}
-              label={`${docName.Name}:`}
+              label={`*${docName.Name}:`}
               type="file"
               className="  bg-gray-200 flex cursor-pointer rounded-xl p-2"
               accept="image/png, image/jpg, image/jpeg, image/gif"

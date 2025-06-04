@@ -60,7 +60,7 @@ function App() {
       {loading ? (
         <GenericLoader />
       ) : (
-        <div>
+        <div className="bg-hero-gradient">
           <div>
             <Routes>
               {userData && userData.role === "admin" ? (

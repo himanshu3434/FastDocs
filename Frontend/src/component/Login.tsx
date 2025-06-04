@@ -39,11 +39,11 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center bg-white  ">
       <div className="  w-[100vw] h-[100vh] -z-10 rounded-2xl opacity-55">
         {/* <img src="./logotest3.jpg" alt="" className=" " /> */}
       </div>
-      <div className="absolute w-[350px] h-[400px] rounded-xl p-5 mt-10 mb-10  text-black shadow-2xl">
+      <div className="absolute  w-[350px] h-[400px]  rounded-xl p-5 mt-10 mb-10  text-black shadow-2xl">
         <div className="text-3xl mb-4 text-center font-bold ">
           <h1 className="opacity-70">Sign in</h1>
         </div>

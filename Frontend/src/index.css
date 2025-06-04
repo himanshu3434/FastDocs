@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.bg-hero-gradient {
+  background-image: linear-gradient(to bottom, #e0ffe8, #fff);
+}
